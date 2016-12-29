@@ -23,7 +23,7 @@ public class CalendarController {
      * @param month - month of year
      * @param year - year
      */
-    public CalendarController (int day,int month,int year){
+    public CalendarController (int day, int month, int year) {
         try {
             mCalendar = new Calendar(LocalDate.of(year, month, day));
         } catch (DateTimeException e) {
