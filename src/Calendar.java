@@ -13,7 +13,6 @@ public class Calendar implements MonthCalendar {
 
     /**
      * Constructs a new Calendar for this date.
-     * @param date - date on which creates a Calendar.
      */
     public Calendar() {
         this.mDate = LocalDate.now();
@@ -24,7 +23,7 @@ public class Calendar implements MonthCalendar {
      * @param month - month of year.
      * @param year - year.
      */
-    public Calendar(int day, int month,int year){
+    public Calendar(int day, int month, int year){
     	try { 
     		this.mDate=LocalDate.of(year, month, day);
     	} catch (DateTimeException e) {
@@ -38,16 +37,17 @@ public class Calendar implements MonthCalendar {
     @Override
     public void printDays() {
         for (DayOfWeek e : DayOfWeek.values()) {
-            if (e == DayOfWeek.SATURDAY
-                    || e == DayOfWeek.SUNDAY) {
+            if (e == DayOfWeek.SATURDAY) {
                 System.out.print(String.format("\033[31m%5s",
+                        e.toString().substring(0, 3)));
+            } else if (e == DayOfWeek.SUNDAY) {
+                System.out.println(String.format("\033[31m%5s",
                         e.toString().substring(0, 3)));
             } else {
                 System.out.print(String.format("\033[32m%5s",
                         e.toString().substring(0, 3)));
             }
         }
-        System.out.println();
     }
 
     /**
@@ -84,24 +84,17 @@ public class Calendar implements MonthCalendar {
      * @param day - day of month
      */
     private void printDayOfWeek(LocalDate day) {
-        String outputText;
-
         if (day.getDayOfMonth() == mDate.getDayOfMonth()) {
-            outputText = String.format("\033[35m%5d", day.getDayOfMonth());
-        }
-        else if (day.getDayOfWeek() == DayOfWeek.SATURDAY
+            System.out.print(String.format("\033[35m%5d", day.getDayOfMonth()));
+        } else if (day.getDayOfWeek() == DayOfWeek.SATURDAY
                 || day.getDayOfWeek() == DayOfWeek.SUNDAY) {
-            outputText = String.format("\033[31m%5d", day.getDayOfMonth());
-        }
-        else {
-            outputText = String.format("\033[32m%5d", day.getDayOfMonth());
+            System.out.print(String.format("\033[31m%5d", day.getDayOfMonth()));
+        } else {
+            System.out.print(String.format("\033[32m%5d", day.getDayOfMonth()));
         }
 
         if (day.getDayOfWeek() == DayOfWeek.SUNDAY) {
-            System.out.println(outputText);
-        }
-        else {
-            System.out.print(outputText);
+            System.out.println();
         }
     }
 
@@ -124,31 +117,6 @@ public class Calendar implements MonthCalendar {
      * @return blank spaces
      */
     private String getSpaceBeforeDays(DayOfWeek day) {
-        switch (day) {
-            case MONDAY: {
-                return String.format("");
-            }
-            case TUESDAY: {
-                return String.format("%-5s","");
-            }
-            case WEDNESDAY: {
-                return String.format("%-10s","");
-            }
-            case THURSDAY: {
-                return String.format("%-15s","");
-            }
-            case FRIDAY: {
-                return String.format("%-20s","");
-            }
-            case SATURDAY: {
-                return String.format("%-25s","");
-            }
-            case SUNDAY: {
-                return String.format("%-30s","");
-            }
-            default: {
-                return String.format("");
-            }
-        }
+        return String.format("%-" + ((day.getValue() - 1) * 5) + "s", "");
     }
 }
