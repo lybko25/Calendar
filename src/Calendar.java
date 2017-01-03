@@ -1,3 +1,4 @@
+import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
@@ -14,8 +15,21 @@ public class Calendar implements MonthCalendar {
      * Constructs a new Calendar for this date.
      * @param date - date on which creates a Calendar.
      */
-    public Calendar(LocalDate date) {
-        this.mDate = date;
+    public Calendar() {
+        this.mDate = LocalDate.now();
+    }
+    /**
+     * Constructs a new Calendar for date in params.
+     * @param day - day of month.
+     * @param month - month of year.
+     * @param year - year.
+     */
+    public Calendar(int day, int month,int year){
+    	try { 
+    		this.mDate=LocalDate.of(year, month, day);
+    	} catch (DateTimeException e) {
+            System.out.print(e.toString());
+        }
     }
 
     /**
@@ -91,6 +105,19 @@ public class Calendar implements MonthCalendar {
         }
     }
 
+    /**
+     * Prints calendar for date, which is in mDate.
+     */
+    @Override
+    public void outputCalendar() {
+    	try {
+            this.printMonthAndYear();
+            this.printDays();
+            this.printTable();
+        } catch (NullPointerException e) {
+            System.out.print(e.toString());
+        }
+    }
     /**
      * Return blank spaces for days of week, which don't print.
      * @param day - day of week.

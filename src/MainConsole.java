@@ -15,7 +15,7 @@ public class MainConsole {
     public static void main (String[] args) {
         // Date format in this constructor (day:int, month:int, year:int)
         // or without parameters - returns current date.
-        CalendarController controller = new CalendarController(21,04,2017);
+        MonthCalendar controller = new Calendar(21,04,2017);
         controller.outputCalendar();
     }
 }

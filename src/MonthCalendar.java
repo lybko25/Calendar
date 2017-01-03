@@ -5,4 +5,5 @@ public interface MonthCalendar {
     void printDays();
     void printMonthAndYear();
     void printTable();
+    void outputCalendar();
 }
